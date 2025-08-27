@@ -1,23 +1,13 @@
 # Dataset Creation – Jargon Scoring and Simplification
 
-## Overview  
-This project focuses on building a dataset of original and simplified sentences, evaluated for their **jargon density** and **complexity**. The goal was to create training data that balances technical heaviness with simplified alternatives, making it useful for future AI tasks such as text simplification and readability optimization.  
+## Overview
+In this project, I focused on creating a dataset of original and simplified sentences and evaluated them for **jargon density** and **complexity**. The goal was to prepare training data that balances technical heaviness with simpler alternatives. This dataset can be used for classical ML tasks like **text simplification using KNN + TF-IDF** and readability analysis.
 
-## Approach  
-- Researched **text simplification techniques**, **BLEU evaluation**, **readability metrics**, and **LLM-based scoring methods**.  
-- Used **BLEU scores** to measure similarity between original and simplified text.  
-- Applied **Ollama-based scoring** to evaluate jargon and complexity in each sentence.  
-- Computed a **Final Rating** by combining BLEU and Ollama scores.  
-- Merged results into a structured dataset containing:  
-  - Original Sentence  
-  - Simplified Sentence  
-  - BLEU Score  
-  - Ollama Score  
-  - Final Rating  
+---
 
-## Datasets  
-- **Training Dataset** – Contains thousands of sentence pairs with evaluation scores.  
-- **Test Dataset** – A separate set prepared to validate the scoring process on unseen data.  
-
-## Outcome  
-The final dataset is compact, structured, and enriched with both linguistic and AI-driven evaluation metrics, making it suitable for **model training and benchmarking** tasks.  
+## Approach
+- I prepared a **training dataset** (`Final_Train.csv`) and a **test dataset** (`Final_test.csv`) with columns `Original` and `Simplified`.
+- I used **TF-IDF** to convert sentences into vectors, with unigrams and bigrams, lowercase conversion, and sublinear term frequency scaling.
+- I trained a **KNN model** on the TF-IDF vectors to find the closest sentence in the training set for each test sentence.
+- For each test sentence, the **simplified sentence from the nearest neighbor** in the training set was used as the prediction.
+- The process optionally included **spell checking** and text cleaning, though the main focus was on vector similarity.
